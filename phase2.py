@@ -1,7 +1,18 @@
 import os
 import re
+from bsddb3 import db
 
 def main():
+
+    #Create database files
+    adDatabase = db.DB()
+    adDatabase.open("ad.idx",None,db.DB_HASH,db.DB_CREATE)
+    teDatabase = db.DB()
+    teDatabase.open("te.idx",None,db.DB_BTREE,db.DB_CREATE)
+    prDatabase = db.DB()
+    prDatabase.open("pr.idx",None,db.DB_BTREE,db.DB_CREATE)
+    daDatabase = db.DB()
+    daDatabase.open("da.idx",None,db.DB_BTREE,db.DB_CREATE)
 
     # Sort files
     os.system("sort -u -o sortedPrices.txt prices.txt")
@@ -11,65 +22,51 @@ def main():
     os.system("sort -u -o sortedTerms.txt terms.txt")
 
     # Scrub the Ad file
-    inputAdFile = open("sortedAds.txt",'r')
-    outputAdFile = open("readyAds.txt",'w')
+    inputFile = open("sortedAds.txt",'r')
 
-    for line in inputAdFile:
+    for line in inputFile:
         items = line.split(":<ad>")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + "<ad>" + cleaned
-            outputAdFile.write(outputString)
+            adDatabase.put(items[0],cleaned)
 
-    inputAdFile.close()
-    outputAdFile.close()
+    inputFile.close()
+    adDatabase.close()
 
     # Scrub the prices file
-    inputAdFile = open("sortedPrices.txt",'r')
-    outputAdFile = open("readyPrices.txt",'w')
+    inputFile = open("sortedPrices.txt",'r')
 
-    for line in inputAdFile:
+    for line in inputFile:
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned
-            outputAdFile.write(outputString)
+            prDatabase.put(items[0],items[1]) 
 
-    inputAdFile.close()
-    outputAdFile.close()
+    inputFile.close()
+    prDatabase.close()
 
     # Scrub the pdates file
-    inputAdFile = open("sortedPdates.txt",'r')
-    outputAdFile = open("readyPdates.txt",'w')
+    inputFile = open("sortedPdates.txt",'r')
 
-    for line in inputAdFile:
+    for line in inputFile:
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned
-            outputAdFile.write(outputString)
+            daDatabase.put(items[0],items[1])
 
-    inputAdFile.close()
-    outputAdFile.close()
+    inputFile.close()
+    daDatabase.close()
 
     # Scrub the terms file
-    inputAdFile = open("sortedTerms.txt",'r')
-    outputAdFile = open("readyTerms.txt",'w')
+    inputFile = open("sortedTerms.txt",'r')
 
-    for line in inputAdFile:
+    for line in inputFile:
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned
-            outputAdFile.write(outputString)
+            teDatabase.put(items[0],items[1])
 
-    inputAdFile.close()
-    outputAdFile.close()
-
-    # Create indexes
-    os.system("db_load -f ad.idx -t hash readyAds.txt")
-    os.system("db_load -f da.idx -t btree readyPdates.txt")
-    os.system("db_load -f te.idx -t btree readyTerms.txt")
-    os.system("db_load -f pr.idx -t btree readyPrices.txt")
+    inputFile.close()
+    teDatabase.close()
 
 main()
