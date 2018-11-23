@@ -18,7 +18,7 @@ def main():
         items = line.split(":<ad>")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + "<ad>" + cleaned + "\n"
+            outputString = items[0] + "\n" + "<ad>" + cleaned
             outputAdFile.write(outputString)
 
     inputAdFile.close()
@@ -32,7 +32,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned + "\n"
+            outputString = items[0] + "\n" + cleaned
             outputAdFile.write(outputString)
 
     inputAdFile.close()
@@ -46,7 +46,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned +"\n"
+            outputString = items[0] + "\n" + cleaned
             outputAdFile.write(outputString)
 
     inputAdFile.close()
@@ -60,16 +60,16 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned + "\n"
+            outputString = items[0] + "\n" + cleaned
             outputAdFile.write(outputString)
 
     inputAdFile.close()
     outputAdFile.close()
 
     # Create indexes
-    os.system("db_load -f readyAds.txt -t hash ad.idx")
-    os.system("db_load -f readyPdates.txt -t btree da.idx")
-    os.system("db_load -f readyTerms.txt -t btree te.idx")
-    os.system("db_load -f readyPrices.txt -t btree pr.idx")
+    os.system("db_load -f ad.idx -t hash readyAds.txt")
+    os.system("db_load -f da.idx -t btree readyPdates.txt")
+    os.system("db_load -f te.idx -t btree readyTerms.txt")
+    os.system("db_load -f pr.idx -t btree readyPrices.txt")
 
 main()
