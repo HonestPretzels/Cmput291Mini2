@@ -28,7 +28,7 @@ def main():
         items = line.split(":<ad>")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            adDatabase.put(items[0],cleaned)
+            adDatabase.put(items[0].encode("utf-8"),cleaned)
 
     inputFile.close()
     adDatabase.close()
@@ -40,7 +40,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            prDatabase.put(items[0],items[1]) 
+            prDatabase.put(items[0].encode("utf-8"),items[1]) 
 
     inputFile.close()
     prDatabase.close()
@@ -52,7 +52,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            daDatabase.put(items[0],items[1])
+            daDatabase.put(items[0].encode("utf-8"),items[1])
 
     inputFile.close()
     daDatabase.close()
@@ -64,7 +64,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            teDatabase.put(items[0],items[1])
+            teDatabase.put(items[0].encode("utf-8"),items[1])
 
     inputFile.close()
     teDatabase.close()
