@@ -2,4 +2,11 @@ ads.txt
 pdates.txt
 prices.txt
 terms.txt
-*.xml
+sortedAds.txt
+sortedTerms.txt
+sortedPdates.txt
+sortedPrices.txt
+readyAds.txt
+readyPdates.txt
+readyPrices.txt
+readyTerms.txt
