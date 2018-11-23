@@ -67,9 +67,9 @@ def main():
     outputAdFile.close()
 
     # Create indexes
-    os.system("db_load -f ad.idx -t hash -T readyAds.txt")
-    os.system("db_load -f da.idx -t btree -T readyPdates.txt")
-    os.system("db_load -f te.idx -t btree -T readyTerms.txt")
-    os.system("db_load -f pr.idx -t btree -T readyPrices.txt")
+    os.system("db_load -f readyAds.txt -t hash -T ad.idx")
+    os.system("db_load -f readyPdates.txt -t btree -T da.idx")
+    os.system("db_load -f readyTerms.txt -t btree -T te.idx")
+    os.system("db_load -f readyPrices.txt -t btree -T pr.idx")
 
 main()
