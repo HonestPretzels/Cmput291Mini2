@@ -18,7 +18,7 @@ def main():
         items = line.split(":<ad>")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + "<ad>" + cleaned
+            outputString = items[0] + "\n" + "<ad>" + cleaned + "\n"
             outputAdFile.write(outputString)
 
     inputAdFile.close()
@@ -32,7 +32,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned
+            outputString = items[0] + "\n" + cleaned + "\n"
             outputAdFile.write(outputString)
 
     inputAdFile.close()
@@ -46,7 +46,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned
+            outputString = items[0] + "\n" + cleaned +"\n"
             outputAdFile.write(outputString)
 
     inputAdFile.close()
@@ -60,7 +60,7 @@ def main():
         items = line.split(":")
         if len(items) == 2:
             cleaned = re.sub(r"\\", r"\\\\", items[1])
-            outputString = items[0] + "\n" + cleaned
+            outputString = items[0] + "\n" + cleaned + "\n"
             outputAdFile.write(outputString)
 
     inputAdFile.close()
