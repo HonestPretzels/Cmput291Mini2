@@ -150,10 +150,10 @@ def main():
                     it = cur2.next()
                 
 
-                cur.close()
-                cur2.close()
-                database.close()
-                database2.close()
+            cur.close()
+            cur2.close()
+            database.close()
+            database2.close()
 
 def get_id(it):
     it = it.decode("utf-8")
