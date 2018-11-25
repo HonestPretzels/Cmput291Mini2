@@ -10,22 +10,14 @@ def main():
 	num_words = len(search_words)
 	valid_query = True
 	current_word = 0
+	data = []
 
 	while current_word < num_words:
 		# print(search_words[current_word])
 		word = search_words[current_word]
-		
-		# check if query is camera
-		if ("camera" in word):
-			if (word == "camera" or word == "camera%"):
-				query(word)
-				current_word += 1
-			else:
-				valid_query = False
-				break
 
 		# check if query is date
-		elif (word == "date"):
+		if (word == "date"):
 			operator = search_words[current_word + 1]
 			target = search_words[current_word + 2]
 
@@ -42,7 +34,7 @@ def main():
 				# search_query = word + " " + operator + " " + target
 				search_query = word + operator + target
 				# print(search_query)
-				query(search_query)
+				data = query(search_query)
 				current_word += 3	
 
 			else:
@@ -63,12 +55,17 @@ def main():
 					break
 
 				search_query = word + operator + target
-				query(search_query)
+				data = query(search_query)
 				current_word += 3
 
 			else:
 				valid_query = False
 				break
+
+		# check if query is camera
+		elif (re.match(r'^[a-z0-9]+[%]?$', word) is not None):
+			data = query(word)
+			current_word += 1
 
 		else:
 			valid_query = False
@@ -76,6 +73,9 @@ def main():
 		
 	if (valid_query):
 		print("Valid Query")
+
+		for value in data:
+			print(value[0] + " | " + value[1])
 
 		# TODO: Print query output
 

@@ -112,6 +112,11 @@ def query(search):
         cat = ''
         desc = ''
         price = ''
+
+        # return list
+
+        retun_list = []
+
         for entry in item_ids:
             cur2 = database2.cursor()
             it = cur2.first()
@@ -141,10 +146,12 @@ def query(search):
                             price = it[i+1]
                         i += 1
 
-                    if not full:
-                            print(entry + " | " + title)
-                    else:
-                        print(entry + " | " + date + " | " + loc + " | " + cat + " | " + title + " | " + desc + " | " + price)
+                    # if not full:
+                    #         print(entry + " | " + title)
+                    # else:
+                    #     print(entry + " | " + date + " | " + loc + " | " + cat + " | " + title + " | " + desc + " | " + price)
+
+                    retun_list.append([entry, date, loc, cat, title, desc, price])
 
 
                 it = cur2.next()
@@ -154,6 +161,8 @@ def query(search):
         cur2.close()
         database.close()
         database2.close()
+
+        return retun_list
 
 def get_id(it):
     it = it.decode("utf-8")
