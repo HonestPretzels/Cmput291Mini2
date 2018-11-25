@@ -13,10 +13,14 @@ def main():
 
 		if (search == "output=full"):
 			full = True
+
+			print("Output set to full")
 			continue
 
 		elif (search == "output=brief"):
 			full = False
+
+			print("Output set to brief")
 			continue
 
 		elif (search == "exit"):
@@ -26,7 +30,7 @@ def main():
 		num_words = len(search_words)
 		valid_query = True
 		current_word = 0
-		data = []
+		data = None
 
 		while current_word < num_words:
 			# print(search_words[current_word])
