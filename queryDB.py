@@ -1,4 +1,4 @@
-from singleQuery import query
+from singleQuery import search_date, search_price, search_term
 import datetime
 import re
 
@@ -53,8 +53,7 @@ def main():
 
 					# search_query = word + " " + operator + " " + target
 					search_query = word + operator + target
-					# print(search_query)
-					data = query(search_query, data)
+					data = search_date(search_query, data)
 					current_word += 3	
 
 				else:
@@ -75,7 +74,7 @@ def main():
 						break
 
 					search_query = word + operator + target
-					data = query(search_query, data)
+					data = search_price(search_query, data)
 					current_word += 3
 
 				else:
@@ -89,15 +88,12 @@ def main():
 				if (check_operator(operator)):
 					search_query = word + operator + target
 
-					data = query(search_query, data)
+					# data = search_location(search_query, data)
 					current_word += 3
-
-
-
 
 			# check if query is term
 			elif (re.match(r'^[a-z0-9]+[%]?$', word) is not None):	#Fred assisted with RegEx understanding
-				data = query(word, data)
+				data = search_term(word, data)
 				current_word += 1
 
 			else:
@@ -105,21 +101,17 @@ def main():
 				break
 			
 		if (valid_query):
-			# print("Valid Query")
 
 			if full:
 				for value in data:
-					# entry + " | " + date + " | " + loc + " | " + cat + " | " + title + " | " + desc + " | " + price
 					print(value[0] + " | " + value[1] + " | " + value[2] + " | " + value[3] + " | " + value[4] + " | " + value[5] + " | " + value[6])
 
 			else:
 				for value in data:
-					print(value[0] + " | " + value[1])
+					print(value[0] + " | " + value[4])
 
 		else:
 			print("Invalid query syntax encountered")
-
-	# query()
 
 
 def check_operator(operator):
