@@ -2,28 +2,6 @@ from bsddb3 import db
 from datetime import datetime
 import re
 
-
-def query(search, data):
-
-    term = ''
-    open_db = ''
-    item_id = ''
-
-
-    if ('date' in search):
-
-        return search_date(search, data)
-
-    elif ('price' in search):
-
-        return search_price(search, data)
-
-    else:
-
-        return search_term(search, data)
-
-
-
 def get_id(it):
     it = it.decode("utf-8")
     items = it.split(',')
@@ -244,20 +222,24 @@ def search_term(search, data):
         it = cur.first()
 
         while it:
-            if (term in it[0].decode("utf-8")):
-                item_id = get_id(it[1])
+            if ('%' in search):
+                if (term in it[0].decode("utf-8")):
+                    item_id = get_id(it[1])
+            else:
+                if (term == it[0].decode("utf-8")):
+                    item_id = get_id(it[1])               
 
             if (item_id != ''):
-                item_ids.append(item_id)
+
+                if item_id not in item_ids:
+                    item_ids.append(item_id)
+
                 item_id = ''
 
             it = cur.next()
 
         cur.close()
         database.close()
-
-        if ('%' in search):
-            return (search_term(search, get_full_data(item_ids)))
 
         return get_full_data(item_ids)
 
@@ -266,15 +248,25 @@ def search_term(search, data):
 
         for item in data:
             if ('%' in search):
-                if (term == item[4][:len(term)] or term == item[5][:len(term)]):
-
-                    print(item[4][:len(term)])
-                    print(item[5][:len(term)])
+                if (term in item[4].lower() or term in item[5].lower()):
                     new_data.append(item)
 
             else:
-                if (term in item[4] or term in item[5]):
-                    new_data.append(item)
+                title_terms = item[4].split()
+                desc_terms = item[5].split()
+
+                term_seen = False
+
+                for word in title_terms:
+                    if (word == term):
+                        term_seen = True
+                        break
+
+                if not term_seen:
+                    for word in desc_terms:
+                        if (word == term):
+                            term_seen = True
+                            break
 
             if (item_id != ''):
                 item_ids.append(item_id)
