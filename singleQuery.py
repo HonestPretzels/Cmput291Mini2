@@ -220,15 +220,16 @@ def search_term(search, data):
         database = db.DB()
         database.open("te.idx")
         cur = database.cursor()
-        it = cur.first()
+        it = cur.set_range(term.encode("utf-8"))
 
         while it:
             if ('%' in search):
                 if (term in it[0].decode("utf-8")):
                     item_id = get_id(it[1])
-            else:
-                if (term == it[0].decode("utf-8")):
+            elif (term == it[0].decode("utf-8")):
                     item_id = get_id(it[1])               
+            else:
+                break
 
             if (item_id != ''):
 
