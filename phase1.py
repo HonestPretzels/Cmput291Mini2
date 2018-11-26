@@ -79,9 +79,9 @@ def get_terms(term_string):
     # returns lower case terms
     terms = []
     term_string = re.sub('&#[0-9]+;', '', term_string)
-    term_string = re.sub('&apos;', ' ', term_string)
-    term_string = re.sub('&quot;', ' ', term_string)
-    term_string = re.sub('&amp;', ' ', term_string)
+    term_string = re.sub('&quot;', '/', term_string)  
+    term_string = re.sub('&apos;', '"', term_string)
+    term_string = re.sub('&amp;', '&', term_string)
     term_string = re.sub('[^0-9a-zA-Z_-]+', ' ', term_string)    
     for term in term_string.split():
         if re.match('[0-9a-zA-Z_-]{3}', term):
