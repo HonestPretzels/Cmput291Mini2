@@ -47,6 +47,7 @@ def main():
     prices_file.close()
     ads_file.close()
 
+# Helper function to extract and organize the items in a line
 def get_items(line):
     organized_items = {}
     items = re.split("[<>]",line)
@@ -76,7 +77,7 @@ def get_items(line):
     return organized_items
 
 def get_terms(term_string):
-    # returns lower case terms
+    # returns lower case terms from the string after scrubbing out special characters
     terms = []
     term_string = re.sub('&#[0-9]+;', '', term_string)
     term_string = re.sub('&quot;', '/', term_string)  
