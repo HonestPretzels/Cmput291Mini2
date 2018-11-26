@@ -16,17 +16,48 @@ def main():
 
 			print("Output set to full")
 			continue
-
 		elif (search == "output=brief"):
 			full = False
 
 			print("Output set to brief")
 			continue
-
 		elif (search == "exit"):
 			break
 
-		search_words = search.split()
+		temp_words = search.split()
+		search_words = []
+
+		# probably not the best way to do this but the overhead runtime cost is negligible
+		for word in temp_words:
+
+			if ("<=" in word):
+				temp_string = word.replace("<=", " <= ")
+				temp_strings = temp_string.split()
+
+			elif (">=" in word):
+				temp_string = word.replace(">=", " >= ")
+				temp_strings = temp_string.split()
+
+			elif ("=" in word):
+				temp_string = word.replace("=", " = ")
+				temp_strings = temp_string.split()
+
+			elif (">" in word):
+				temp_string = word.replace(">", " > ")
+				temp_strings = temp_string.split()
+
+			elif ("<" in word):
+				temp_string = word.replace("<", " < ")
+				temp_strings = temp_string.split()
+
+			else:
+				temp_strings = [word]
+
+			for string in temp_strings:
+				search_words.append(string)
+
+		print(search_words)
+
 		num_words = len(search_words)
 		valid_query = True
 		current_word = 0
