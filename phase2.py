@@ -1,5 +1,6 @@
 import os
 import re
+from bsddb3 import db
 
 def main():
 
@@ -9,6 +10,20 @@ def main():
     os.system("sort -u -o sortedAds.txt ads.txt")
     os.system("sort -u -o sortedPdates.txt pdates.txt")
     os.system("sort -u -o sortedTerms.txt terms.txt")
+
+    # Create database
+    adDB = db.DB()
+    adDB.open("ad.idx")
+    adDB.set_flags(db.DB_DUP)
+    teDB = db.DB()
+    teDB.open("te.idx")
+    teDB.set_flags(db.DB_DUP)
+    prDB = db.DB()
+    prDB.open("pr.idx")
+    prDB.set_flags(db.DB_DUP)
+    daDB = db.DB()
+    daDB.open("da.idx")
+    daDB.set_flags(db.DB_DUP)
 
     # Scrub the Ad file
     inputAdFile = open("sortedAds.txt",'r')
