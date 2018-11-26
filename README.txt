@@ -1,6 +1,8 @@
-worktrack:
-	started: 7:30pm
-	ended: 9:30pm
+Names:
 
-	started: 4:00pm
-	ended: 10:00pm
+Logan Yue: ltyue
+Jolene Poulin: jcpoulin
+Tom Maurer: tmaurer
+
+Collaborators:
+Logan Yue consulted Frederic Sauve-Hoover on regex operations
