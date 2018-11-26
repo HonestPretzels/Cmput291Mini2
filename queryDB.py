@@ -56,8 +56,6 @@ def main():
 			for string in temp_strings:
 				search_words.append(string)
 
-		print(search_words)
-
 		num_words = len(search_words)
 		valid_query = True
 		current_word = 0
