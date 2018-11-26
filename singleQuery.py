@@ -20,37 +20,38 @@ def get_full_data(item_ids):
 
     for entry in item_ids:
         cur = database.cursor()
-        it = cur.first()
+        # it = cur.first()
 
-        #Match each item with one in the db and retrieve full info
-        while it:
-            if (entry in it[1].decode("utf-8")):
-                it = it[1].decode("utf-8")
-                it = it.replace('><', ';')
-                it = it.replace('<', ';')
-                it = it.replace('>', ';')
-                it = it.replace('"\\"', ';')
-                it = it.split(';')
-                title = ''
-                i = 0
-                for item in it:
-                    if (item == 'ti'):
-                        title = it[i+1]
-                    elif (item == 'date'):
-                        date = it[i+1]
-                    elif (item == 'loc'):
-                        loc = it[i+1]
-                    elif (item == 'cat'):
-                        cat = it[i+1]
-                    elif (item == 'desc'):
-                        desc = it[i+1]
-                    elif (item == 'price'):
-                        price = it[i+1]
-                    i += 1
+        values = database.get(entry.encode("utf-8"))
 
-                data.append([entry, date, loc, cat, title, desc, price])
+        it = values.decode("utf-8")
+        it = it.replace('><', '{SplitTarget}')
+        it = it.replace('<', '{SplitTarget}')
+        it = it.replace('>', '{SplitTarget}')
+        it = it.replace('"\\"', '{SplitTarget}')
+        it = it.split('{SplitTarget}')
 
-            it = cur.next()
+        # print(it)
+
+        title = ''
+        i = 0
+        for item in it:
+            if (item == 'ti'):
+                title = it[i+1]
+            elif (item == 'date'):
+                date = it[i+1]
+            elif (item == 'loc'):
+                loc = it[i+1]
+            elif (item == 'cat'):
+                cat = it[i+1]
+            elif (item == 'desc'):
+                desc = it[i+1]
+            elif (item == 'price'):
+                price = it[i+1]
+            i += 1
+
+        data.append([entry, date, loc, cat, title, desc, price])
+
 
         cur.close()
     
