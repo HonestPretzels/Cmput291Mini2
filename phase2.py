@@ -13,17 +13,16 @@ def main():
 
     # Create database
     adDB = db.DB()
-    adDB.set_flags(db.DB_DUP)
-    adDB.open("ad.idx")
+    adDB.open("ad.idx",None,db.DB_HASH,db.DB_CREATE)
     teDB = db.DB()
     teDB.set_flags(db.DB_DUP)
-    teDB.open("te.idx")
+    teDB.open("te.idx",None,db.DB_BTREE,db.DB_CREATE)
     prDB = db.DB()
     prDB.set_flags(db.DB_DUP)
-    prDB.open("pr.idx")
+    prDB.open("pr.idx",None,db.DB_BTREE,db.DB_CREATE)
     daDB = db.DB()
     daDB.set_flags(db.DB_DUP)
-    daDB.open("da.idx")
+    daDB.open("da.idx",None,db.DB_BTREE,db.DB_CREATE)
 
     adDB.close()
     teDB.close()
