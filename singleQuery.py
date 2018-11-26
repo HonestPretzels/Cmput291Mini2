@@ -274,3 +274,123 @@ def search_term(search, data):
 
         return new_data
 
+def search_cat(term, data):
+
+    if (data is None):
+        database = db.DB()
+        database.open('ad.idx')
+        date = ''
+        loc = ''
+        cat = ''
+        desc = ''
+        price = ''
+        title = ''
+        data = []
+
+        cur = database.cursor()
+        it = cur.first()
+
+        #Match each item with one in the db and retrieve full info
+        while it:
+            entry = it[0].decode("utf-8")
+            it = it[1].decode("utf-8")
+            it = it.replace('><', ';')
+            it = it.replace('<', ';')
+            it = it.replace('>', ';')
+            it = it.replace('"\\"', ';')
+            it = it.split(';')
+            
+            i = 0
+            for item in it:
+                if (item == 'ti'):
+                    title = it[i+1]
+                elif (item == 'date'):
+                    date = it[i+1]
+                elif (item == 'loc'):
+                    loc = it[i+1]
+                elif (item == 'cat'):
+                    cat = it[i+1]
+                elif (item == 'desc'):
+                    desc = it[i+1]
+                elif (item == 'price'):
+                    price = it[i+1]
+                i += 1
+
+            if(cat.lower() == term):
+                data.append([entry, date, loc, cat, title, desc, price])
+
+            it = cur.next()
+        cur.close()
+        database.close()
+        return data
+
+    else:
+        new_data = []
+
+        for item in data:
+            if (item[3].lower() == term):
+                new_data.append(item)
+
+        return new_data
+
+def search_location(term, data):
+
+    if (data is None):
+        database = db.DB()
+        database.open('ad.idx')
+        date = ''
+        loc = ''
+        cat = ''
+        desc = ''
+        price = ''
+        title = ''
+        data = []
+
+        cur = database.cursor()
+        it = cur.first()
+
+        #Match each item with one in the db and retrieve full info
+        while it:
+            entry = it[0].decode("utf-8")
+            it = it[1].decode("utf-8")
+            it = it.replace('><', ';')
+            it = it.replace('<', ';')
+            it = it.replace('>', ';')
+            it = it.replace('"\\"', ';')
+            it = it.split(';')
+            
+            i = 0
+            for item in it:
+                if (item == 'ti'):
+                    title = it[i+1]
+                elif (item == 'date'):
+                    date = it[i+1]
+                elif (item == 'loc'):
+                    loc = it[i+1]
+                elif (item == 'cat'):
+                    cat = it[i+1]
+                elif (item == 'desc'):
+                    desc = it[i+1]
+                elif (item == 'price'):
+                    price = it[i+1]
+                i += 1
+
+            if(loc.lower() == term):
+                # print("match")
+                data.append([entry, date, loc, cat, title, desc, price])
+
+            it = cur.next()
+
+        cur.close()
+        database.close()
+
+        return data
+
+    else:
+        new_data = []
+
+        for item in data:
+            if (item[2].lower() == term):
+                new_data.append(item)
+
+        return new_data
