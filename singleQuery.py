@@ -295,11 +295,11 @@ def search_cat(term, data):
         while it:
             entry = it[0].decode("utf-8")
             it = it[1].decode("utf-8")
-            it = it.replace('><', ';')
-            it = it.replace('<', ';')
-            it = it.replace('>', ';')
-            it = it.replace('"\\"', ';')
-            it = it.split(';')
+            it = it.replace('><', '{SplitTarget}')
+            it = it.replace('<', '{SplitTarget}')
+            it = it.replace('>', '{SplitTarget}')
+            it = it.replace('"\\"', '{SplitTarget}')
+            it = it.split('{SplitTarget}')
             
             i = 0
             for item in it:
@@ -354,11 +354,11 @@ def search_location(term, data):
         while it:
             entry = it[0].decode("utf-8")
             it = it[1].decode("utf-8")
-            it = it.replace('><', ';')
-            it = it.replace('<', ';')
-            it = it.replace('>', ';')
-            it = it.replace('"\\"', ';')
-            it = it.split(';')
+            it = it.replace('><', '{SplitTarget}')
+            it = it.replace('<', '{SplitTarget}')
+            it = it.replace('>', '{SplitTarget}')
+            it = it.replace('"\\"', '{SplitTarget}')
+            it = it.split('{SplitTarget}')
             
             i = 0
             for item in it:
