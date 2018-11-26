@@ -78,19 +78,19 @@ def search_date(search, data):
 
         while it:
             if ('<=' in search):
-                if (datetime.strptime(it[0].decode("utf-8"), "%y/%m/%d") <= datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(it[0].decode("utf-8"), "%Y/%m/%d") <= datetime.strptime(term, "%Y/%m/%d")):
                     item_id = get_id(it[1])
             elif ('>=' in search):
-                if (datetime.strptime(it[0].decode("utf-8"), "%y/%m/%d") >= datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(it[0].decode("utf-8"), "%Y/%m/%d") >= datetime.strptime(term, "%Y/%m/%d")):
                     item_id = get_id(it[1])
             elif ('>' in search):
-                if (datetime.strptime(it[0].decode("utf-8"), "%y/%m/%d") > datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(it[0].decode("utf-8"), "%Y/%m/%d") > datetime.strptime(term, "%Y/%m/%d")):
                     item_id = get_id(it[1])
             elif ('<' in search):
-                if (datetime.strptime(it[0].decode("utf-8"), "%y/%m/%d") < datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(it[0].decode("utf-8"), "%Y/%m/%d") < datetime.strptime(term, "%Y/%m/%d")):
                     item_id = get_id(it[1])
             elif ('=' in search):
-                if (datetime.strptime(it[0].decode("utf-8"), "%y/%m/%d") == datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(it[0].decode("utf-8"), "%Y/%m/%d") == datetime.strptime(term, "%Y/%m/%d")):
                     item_id = get_id(it[1])
 
             if (item_id != ''):
@@ -108,19 +108,19 @@ def search_date(search, data):
 
         for item in data:
             if ('<=' in search):
-                if (datetime.strptime(item[1], "%y/%m/%d") <= datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(item[1], "%Y/%m/%d") <= datetime.strptime(term, "%Y/%m/%d")):
                     new_data.append(item)
             elif ('>=' in search):
-                if (datetime.strptime(item[1], "%y/%m/%d") >= datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(item[1], "%Y/%m/%d") >= datetime.strptime(term, "%Y/%m/%d")):
                     new_data.append(item)
             elif ('>' in search):
-                if (datetime.strptime(item[1], "%y/%m/%d") > datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(item[1], "%Y/%m/%d") > datetime.strptime(term, "%Y/%m/%d")):
                     new_data.append(item)
             elif ('<' in search):
-                if (datetime.strptime(item[1], "%y/%m/%d") < datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(item[1], "%Y/%m/%d") < datetime.strptime(term, "%Y/%m/%d")):
                     new_data.append(item)
             elif ('=' in search):
-                if (datetime.strptime(item[1], "%y/%m/%d") == datetime.strptime(term, "%y/%m/%d")):
+                if (datetime.strptime(item[1], "%Y/%m/%d") == datetime.strptime(term, "%Y/%m/%d")):
                     new_data.append(item)
 
         return new_data
